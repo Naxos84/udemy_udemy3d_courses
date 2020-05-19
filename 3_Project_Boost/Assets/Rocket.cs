@@ -6,6 +6,7 @@ public class Rocket : MonoBehaviour
 {
 
     Rigidbody rigidBody;
+    [SerializeField] float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +27,10 @@ public class Rocket : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            print("Rotating left");
+            transform.Rotate(Vector3.forward * this.rotationSpeed * Time.deltaTime);
         } else if (Input.GetKey(KeyCode.D))
         {
-            print("Rotating right");
+            transform.Rotate(Vector3.back * this.rotationSpeed * Time.deltaTime);
         }
     }
 }

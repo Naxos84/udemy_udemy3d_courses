@@ -28,6 +28,19 @@ public class Rocket : MonoBehaviour
         ProcessRotation();
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+            default:
+                print("dead");
+                break;
+        }
+    }
+
     private void ProcessThrust()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -58,4 +71,5 @@ public class Rocket : MonoBehaviour
         }
         rigidBody.freezeRotation = false; // resume physics control of rotation
     }
+
 }

@@ -12,9 +12,15 @@ public class Rocket : MonoBehaviour
     [SerializeField] float rotationSpeed = 1.0f;
     [SerializeField] float mainThrust = 1.0f;
     [SerializeField] float levelTransitionWaitTime = 3.0f;
+    [SerializeField] AudioClip mainEngine = null;
+    [SerializeField] AudioClip death = null;
+    [SerializeField] AudioClip success = null;
+
+    [SerializeField] GameObject destroyedVersion = null;
     // Start is called before the first frame update
     void Start()
     {
+        print("starting level");
         this.rigidBody = GetComponent<Rigidbody>();
         this.audioSource = GetComponent<AudioSource>();
     }
@@ -32,8 +38,8 @@ public class Rocket : MonoBehaviour
 
     private void ProcessInput()
     {
-        ProcessThrust();
-        ProcessRotation();
+        ProcessThrustInput();
+        ProcessRotationInput();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -59,15 +65,26 @@ public class Rocket : MonoBehaviour
     private void KillPlayer()
     {
         print("Dead");
-        this.state = State.Dying;
-        this.rigidBody.constraints = RigidbodyConstraints.None;
+        // this.state = State.Dying;
+        // this.rigidBody.constraints = RigidbodyConstraints.None;
+        // this.audioSource.Stop();
+        // this.audioSource.PlayOneShot(this.death); //This is played by destroyed object.
+        this.ExplodePlayer();
         Invoke("ResetLevel", levelTransitionWaitTime);
+    }
+
+    private void ExplodePlayer()
+    {
+        Instantiate(this.destroyedVersion, transform.position, transform.rotation);
+        gameObject.SetActive(false);
     }
 
     private void Transcend()
     {
         print("Finished");
         this.state = State.Transcending;
+        this.audioSource.Stop();
+        this.audioSource.PlayOneShot(this.success);
         Invoke("LoadNextLevel", levelTransitionWaitTime);
     }
 
@@ -79,18 +96,15 @@ public class Rocket : MonoBehaviour
 
     private void ResetLevel()
     {
+        print("resetting level");
         SceneManager.LoadScene(0);
     }
 
-    private void ProcessThrust()
+    private void ProcessThrustInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            this.rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            ApplyThrust();
         }
         else
         {
@@ -98,7 +112,16 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void ProcessRotation()
+    private void ApplyThrust()
+    {
+        this.rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        if (!this.audioSource.isPlaying)
+        {
+            this.audioSource.PlayOneShot(this.mainEngine);
+        }
+    }
+
+    private void ProcessRotationInput()
     {
 
         rigidBody.freezeRotation = true; // take manual control of rotation

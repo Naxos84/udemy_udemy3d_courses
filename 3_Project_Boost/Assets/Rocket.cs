@@ -48,17 +48,27 @@ public class Rocket : MonoBehaviour
                 print("OK");
                 break;
             case "Finish":
-                print("Finished");
-                this.state = State.Transcending;
-                Invoke("LoadNextLevel", levelTransitionWaitTime);
+                this.Transcend();
                 break;
             default:
-                print("Dead");
-                this.state = State.Dying;
-                this.rigidBody.constraints = RigidbodyConstraints.None;
-                Invoke("ResetLevel", levelTransitionWaitTime);
+                this.KillPlayer();
                 break;
         }
+    }
+
+    private void KillPlayer()
+    {
+        print("Dead");
+        this.state = State.Dying;
+        this.rigidBody.constraints = RigidbodyConstraints.None;
+        Invoke("ResetLevel", levelTransitionWaitTime);
+    }
+
+    private void Transcend()
+    {
+        print("Finished");
+        this.state = State.Transcending;
+        Invoke("LoadNextLevel", levelTransitionWaitTime);
     }
 
     private void LoadNextLevel()

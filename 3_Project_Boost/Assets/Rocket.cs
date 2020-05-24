@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
+    State state = State.Alive;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
     [SerializeField] float rotationSpeed = 1.0f;
     [SerializeField] float mainThrust = 1.0f;
+    [SerializeField] float levelTransitionWaitTime = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,12 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+
+        //TODO stop sound on death
+        if (state == State.Alive) 
+        {
+            ProcessInput();
+        }
     }
 
     private void ProcessInput()
@@ -30,15 +38,37 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        switch(collision.gameObject.tag)
+        if (state != State.Alive)
+        {
+            return;
+        }
+        switch (collision.gameObject.tag)
         {
             case "Friendly":
                 print("OK");
                 break;
+            case "Finish":
+                print("Finished");
+                this.state = State.Transcending;
+                Invoke("LoadNextLevel", levelTransitionWaitTime);
+                break;
             default:
-                print("dead");
+                print("Dead");
+                this.state = State.Dying;
+                Invoke("ResetLevel", levelTransitionWaitTime);
                 break;
         }
+    }
+
+    private void LoadNextLevel()
+    {
+        // TODO allow for more levels
+        SceneManager.LoadScene(1);
+    }
+
+    private void ResetLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void ProcessThrust()
@@ -73,3 +103,5 @@ public class Rocket : MonoBehaviour
     }
 
 }
+
+enum State { Alive, Dying, Transcending }

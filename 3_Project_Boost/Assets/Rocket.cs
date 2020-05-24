@@ -55,6 +55,7 @@ public class Rocket : MonoBehaviour
             default:
                 print("Dead");
                 this.state = State.Dying;
+                this.rigidBody.constraints = RigidbodyConstraints.None;
                 Invoke("ResetLevel", levelTransitionWaitTime);
                 break;
         }

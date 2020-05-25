@@ -13,8 +13,11 @@ public class Rocket : MonoBehaviour
     [SerializeField] float mainThrust = 1.0f;
     [SerializeField] float levelTransitionWaitTime = 3.0f;
     [SerializeField] AudioClip mainEngine = null;
-    [SerializeField] AudioClip death = null;
+    //[SerializeField] AudioClip death = null; // handled by Destroyable Player
     [SerializeField] AudioClip success = null;
+    [SerializeField] ParticleSystem[] mainEngineParticles = null;
+    //[SerializeField] ParticleSystem deathParticles = null; // handled by Destroyable Player
+    [SerializeField] ParticleSystem successParticles = null;
 
     [SerializeField] GameObject destroyedVersion = null;
     // Start is called before the first frame update
@@ -85,6 +88,7 @@ public class Rocket : MonoBehaviour
         this.state = State.Transcending;
         this.audioSource.Stop();
         this.audioSource.PlayOneShot(this.success);
+        this.successParticles.Play();
         Invoke("LoadNextLevel", levelTransitionWaitTime);
     }
 
@@ -109,6 +113,10 @@ public class Rocket : MonoBehaviour
         else
         {
             audioSource.Stop();
+            foreach (ParticleSystem mainEngineParticle in this.mainEngineParticles)
+            {
+                mainEngineParticle.Stop();
+            }
         }
     }
 
@@ -118,6 +126,10 @@ public class Rocket : MonoBehaviour
         if (!this.audioSource.isPlaying)
         {
             this.audioSource.PlayOneShot(this.mainEngine);
+        }
+        foreach(ParticleSystem mainEngineParticle in this.mainEngineParticles)
+        {
+            mainEngineParticle.Play();
         }
     }
 

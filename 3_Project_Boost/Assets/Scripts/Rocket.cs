@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem successParticles = null;
 
     [SerializeField] GameObject destroyedVersion = null;
+    bool collisionEnabled = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,26 @@ public class Rocket : MonoBehaviour
         {
             ProcessInput();
         }
+        if (Debug.isDebugBuild)
+        {
+            ProcessDebugInput();
+        }
+    }
+
+    void ProcessDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        } else if (Input.GetKeyDown(KeyCode.C))
+        {
+            this.ToggleCollision();
+        }
+    }
+
+    void ToggleCollision()
+    {
+        this.collisionEnabled = !this.collisionEnabled;
     }
 
     private void ProcessInput()
@@ -47,7 +69,7 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive)
+        if (state != State.Alive || !collisionEnabled)
         {
             return;
         }
@@ -78,7 +100,9 @@ public class Rocket : MonoBehaviour
 
     private void ExplodePlayer()
     {
-        Instantiate(this.destroyedVersion, transform.position, transform.rotation);
+        var gameObject = Instantiate(this.destroyedVersion, transform.position, transform.rotation);
+        var rocket = gameObject.GetComponent<Rocket>();
+        rocket.collisionEnabled = this.collisionEnabled;
         gameObject.SetActive(false);
     }
 

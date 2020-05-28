@@ -115,7 +115,10 @@ public class Rocket : MonoBehaviour
             audioSource.Stop();
             foreach (ParticleSystem mainEngineParticle in this.mainEngineParticles)
             {
-                mainEngineParticle.Stop();
+                if (mainEngineParticle.isPlaying)
+                {
+                    mainEngineParticle.Stop();
+                }
             }
         }
     }
@@ -129,7 +132,10 @@ public class Rocket : MonoBehaviour
         }
         foreach(ParticleSystem mainEngineParticle in this.mainEngineParticles)
         {
-            mainEngineParticle.Play();
+            if (mainEngineParticle.isStopped)
+            {
+                mainEngineParticle.Play();
+            }
         }
     }
 

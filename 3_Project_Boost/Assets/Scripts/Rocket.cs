@@ -179,8 +179,8 @@ public class Rocket : MonoBehaviour
 
     private void ProcessRotationInput()
     {
+        this.rigidBody.angularVelocity = Vector3.zero;
 
-        rigidBody.freezeRotation = true; // take manual control of rotation
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward * this.rotationSpeed * Time.deltaTime);
@@ -189,7 +189,6 @@ public class Rocket : MonoBehaviour
         {
             transform.Rotate(Vector3.back * this.rotationSpeed * Time.deltaTime);
         }
-        rigidBody.freezeRotation = false; // resume physics control of rotation
     }
 
 }

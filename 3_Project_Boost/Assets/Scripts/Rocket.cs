@@ -121,13 +121,25 @@ public class Rocket : MonoBehaviour
     private void LoadNextLevel()
     {
         // TODO allow for more levels
-        SceneManager.LoadScene(1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        int nextSceneIndex = currentSceneIndex;
+        if (currentSceneIndex >= sceneCount)
+        {
+            nextSceneIndex = 0;
+        }
+        else
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     private void ResetLevel()
     {
         print("resetting level");
-        SceneManager.LoadScene(0);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void ProcessThrustInput()

@@ -806,12 +806,14 @@ MonoBehaviour:
   mainThrust: 800
   levelTransitionWaitTime: 3
   mainEngine: {fileID: 8300000, guid: ae0e07e0e729abf45896f8f4b51ffe83, type: 3}
+  death: {fileID: 8300000, guid: 73096e18ace4a0641960a14a98365c5c, type: 3}
   success: {fileID: 8300000, guid: 3ffd143615e023741be267d1708c4c0e, type: 3}
   mainEngineParticles:
   - {fileID: 198100717471606239}
   - {fileID: 198100717965969650}
   - {fileID: 198100718977345305}
   - {fileID: 198100717658595219}
+  deathParticles: {fileID: 198204747599801338}
   successParticles: {fileID: 198631064891148476}
   destroyedVersion: {fileID: 4742007288600820791, guid: f90614acce219f045a50981772ad8411,
     type: 3}
@@ -1524,6 +1526,12 @@ PrefabInstance:
 --- !u!4 &4436900758252064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4436899185823514, guid: ab79a37535b979f48b6de56e3a0a5cb0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1652122938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &198204747599801338 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198204746014789312, guid: ab79a37535b979f48b6de56e3a0a5cb0,
     type: 3}
   m_PrefabInstance: {fileID: 1652122938}
   m_PrefabAsset: {fileID: 0}

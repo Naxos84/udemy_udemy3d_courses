@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Rocket : MonoBehaviour
 {
     State state = State.Alive;
+    bool isStarted = false;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -84,6 +85,14 @@ public class Rocket : MonoBehaviour
             default:
                 this.KillPlayer();
                 break;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Friendly")
+        {
+            this.isStarted = true;
         }
     }
 
@@ -179,15 +188,18 @@ public class Rocket : MonoBehaviour
 
     private void ProcessRotationInput()
     {
-        this.rigidBody.angularVelocity = Vector3.zero;
+        if (this.isStarted)
+        {
+            this.rigidBody.angularVelocity = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(Vector3.forward * this.rotationSpeed * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(Vector3.back * this.rotationSpeed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(Vector3.forward * this.rotationSpeed * Time.deltaTime);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(Vector3.back * this.rotationSpeed * Time.deltaTime);
+            }
         }
     }
 

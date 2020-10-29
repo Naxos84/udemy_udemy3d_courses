@@ -16,6 +16,7 @@ public class LeveLoad : MonoBehaviour
     void Start()
     {
         Invoke("LoadNextLevel", levelTransitionWaitTime);
+        Debug.Log("Hello World");
     }
 
     void LoadNextLevel()
@@ -38,6 +39,6 @@ public class LeveLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

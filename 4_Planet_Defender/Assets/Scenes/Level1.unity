@@ -485,7 +485,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circuit: {fileID: 825965110}
-  lookAheadForTargetOffset: 2
+  lookAheadForTargetOffset: 0.5
   lookAheadForTargetFactor: 0.1
   lookAheadForSpeedOffset: 10
   lookAheadForSpeedFactor: 0.2
@@ -722,11 +722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8b16e9216707d49b2e43accc2994d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeed: 15
-  ySpeed: 15
+  xSpeed: 10
+  ySpeed: 10
   xRange: 10
-  yRangeMin: -6
-  yRangeMax: 4
+  yRangeMin: -7.8
+  yRangeMax: 5.5
   positionPitchFactor: -1.75
   controlPitchFactor: -15
   positionYawFactor: 2
@@ -806,12 +806,12 @@ PrefabInstance:
     - target: {fileID: 29535730529434128, guid: d42a490644a04ca4eb2750ed53a1b6ca,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.97
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 29535730529434128, guid: d42a490644a04ca4eb2750ed53a1b6ca,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.42
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 29535730529434128, guid: d42a490644a04ca4eb2750ed53a1b6ca,
         type: 3}

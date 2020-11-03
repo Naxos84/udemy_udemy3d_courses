@@ -7,11 +7,6 @@ public class LeveLoad : MonoBehaviour
 {
     [SerializeField] float levelTransitionWaitTime = 3.0f;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     // Start is called before the first frame update
     void Start()
     {

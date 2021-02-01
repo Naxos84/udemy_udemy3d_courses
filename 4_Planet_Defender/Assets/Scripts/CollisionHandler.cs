@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+
+    [Tooltip("The amount of time (in seconds) before the next level is loaded.")] [SerializeField] float levelLoadDelay = 1f;
+    [Tooltip("The object to activate on collision.")] [SerializeField] GameObject explosionFx = null;
 
     private PlayerController playerController;
     void Start()
@@ -26,6 +30,14 @@ public class CollisionHandler : MonoBehaviour
     private void StartDeathSequence()
     {
         Debug.Log("Player dying");
-        this.playerController.disableControls();
+        this.playerController.DisableControls();
+        explosionFx.SetActive(true);
+        Invoke("NextLevel", this.levelLoadDelay);
     }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 }

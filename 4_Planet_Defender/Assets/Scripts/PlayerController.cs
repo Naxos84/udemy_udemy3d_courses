@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         ProcessRotation();
     }
 
-    public void disableControls()
+    public void DisableControls()
     {
         this.isControlEnabled = false;
     }

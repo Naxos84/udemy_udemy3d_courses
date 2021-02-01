@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Musicplayer : MonoBehaviour
+public class MusicPlayer : MonoBehaviour
 {
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        MusicPlayer[] musicplayers = FindObjectsOfType<MusicPlayer>();
+        if (musicplayers.Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     // Start is called before the first frame update

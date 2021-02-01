@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     float xThrow = 0f;
     float yThrow = 0f;
 
+    bool isControlEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +35,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        if (this.isControlEnabled)
+        {
+            ProcessInput();
+        }
         ProcessTranslation();
         ProcessRotation();
+    }
+
+    public void disableControls()
+    {
+        this.isControlEnabled = false;
     }
 
     private void ProcessInput()

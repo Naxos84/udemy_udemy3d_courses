@@ -1,28 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private PlayerController playerController;
     void Start()
     {
-
+        this.playerController = GetComponent<PlayerController>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnCollisionEnter(Collision other)
     {
+        // Does not occur in this case.
+        // Check https://docs.unity3d.com/Manual/CollidersOverview.html
         Debug.Log("Player collision with " + other.gameObject.name);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Player triggering with " + other.name);
+        StartDeathSequence();
+    }
+
+    private void StartDeathSequence()
+    {
+        Debug.Log("Player dying");
+        this.playerController.disableControls();
     }
 }

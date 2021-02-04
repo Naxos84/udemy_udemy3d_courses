@@ -1139,16 +1139,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullets (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1324123574551158809, guid: 340ae232575483546b4b6c1850059cf2,
-        type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1324123574551158809, guid: 340ae232575483546b4b6c1850059cf2,
-        type: 3}
-      propertyPath: CollisionModule.type
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1324123574551158811, guid: 340ae232575483546b4b6c1850059cf2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1298,16 +1288,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullets
-      objectReference: {fileID: 0}
-    - target: {fileID: 1324123574551158809, guid: 340ae232575483546b4b6c1850059cf2,
-        type: 3}
-      propertyPath: CollisionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1324123574551158809, guid: 340ae232575483546b4b6c1850059cf2,
-        type: 3}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1324123574551158811, guid: 340ae232575483546b4b6c1850059cf2,
         type: 3}

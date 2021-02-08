@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
+    private bool isDying;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +32,19 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("Enemy hit " + other.name);
+        if (this.isDying)
+        {
+            return;
+        }
+        this.isDying = true;
+        Debug.Log(this.gameObject.name + " hit " + other.name);
         GameObject fx = Instantiate(this.deathFX, this.transform.position, Quaternion.identity);
         fx.transform.SetParent(parent);
         Destroy(this.gameObject);
+        var scoreBoards = FindObjectsOfType<Scoreboard>();
+        foreach (Scoreboard scoreBoard in scoreBoards)
+        {
+            scoreBoard.ScoreHit();
+        }
     }
 }
